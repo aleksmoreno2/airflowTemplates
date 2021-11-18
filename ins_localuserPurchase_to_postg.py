@@ -32,7 +32,7 @@ def csvToPostgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_sql').get_conn()
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
-    with open(file_path("/users/aleks/de-bootcamp-am/user_purchase.csv"), "r")) as f:
+    with open(file_path("/user_purchase.csv"), "r")) as f:
         next(f)
         curr.copy_from(f, 'user_purchaseZ9', sep=',')
         get_postgres_conn.commit()
