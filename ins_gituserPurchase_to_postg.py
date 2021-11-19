@@ -42,14 +42,14 @@ def csvToPostgres():
 create_table = PostgresOperator(task_id = 'create_user_purchase_table',
                          sql ="""
                             CREATE TABLE IF NOT EXISTS user_purchases (
-                            invoice_number VARCHAR(100),
-                            stock_code VARCHAR(20),
-                            detail VARCHAR(1000),
-                            quantity INT,
-                            invoice_date TIMESTAMP,
-                            unit_price NUMERIC(8,3),
-                            customer_id INT,
-                            country VARCHAR(20));
+                            InvoiceNo VARCHAR(100),
+                            StockCode VARCHAR(20),
+                            Description VARCHAR(1000),
+                            Quantity INT,
+                            InvoiceDate TIMESTAMP,
+                            UnitPrice NUMERIC(8,3),
+                            CustomerID INT,
+                            Country VARCHAR(20));
                         """,
                          postgres_conn_id='postgres_sql', 
                          autocommit=True,
