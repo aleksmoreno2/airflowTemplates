@@ -34,8 +34,7 @@ def csvToPostgres():
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
     with open(file_path("user_purchase.csv"), "rb") as f:
-        next(f)
-        curr.copy_from(f, 'user_purchases', sep=',')
+        curr.copy_expert("COPY users.user_purchases FROM STDIN WITH CSV HEADER", f)
         get_postgres_conn.commit()
 
 
