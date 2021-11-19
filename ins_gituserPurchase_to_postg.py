@@ -24,7 +24,8 @@ dag = DAG('ins_gituserPurchase_to_postg',
 def file_path(relative_path):
     dir = os.path.dirname(os.path.abspath(__file__))
     split_path = relative_path.split("/")
-    return split_path
+    new_path = os.path.join(dir, *split_path)
+    return new_path
 
 def csvToPostgres():
     #Open Postgres Connection
@@ -34,16 +35,13 @@ def csvToPostgres():
     # CSV loading to table.
     with open(file_path("user_purchase.csv"), "r") as f:
         next(f)
-        curr.copy_from(f, 'user_purchaseZ10', sep=',')
+        curr.copy_from(f, 'user_purchaseZ11', sep=',')
         get_postgres_conn.commit()
-    # sample_data = pd.read_csv('./user_purchase.csv')
-    #     curr.copy_from(sample_data, 'user_purchaseZ10', sep=',')
-    #     get_postgres_conn.commit()
 
 #Task create_table
 create_table = PostgresOperator(task_id = 'create_user_purchase_table',
                          sql ="""
-                            CREATE TABLE IF NOT EXISTS user_purchaseZ10 (
+                            CREATE TABLE IF NOT EXISTS user_purchaseZ11 (
                             invoice_number VARCHAR(10) PRIMARY KEY,
                             stock_code VARCHAR(20),
                             detail VARCHAR(1000),
