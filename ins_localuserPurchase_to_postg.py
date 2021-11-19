@@ -22,8 +22,8 @@ dag = DAG('ins_localuserPurchase_to_postg',
           catchup=False)
 
 def file_path(relative_path):
-    dir = "c:\\Users\\aleks\\de-bootcamp-am"
-    split_path = relative_path.split("\\")
+    dir = "c:/Users/aleks/de-bootcamp-am"
+    split_path = relative_path.split("/")
     new_path = os.path.join(dir, *split_path)
     return new_path
 
@@ -33,7 +33,7 @@ def csvToPostgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_sql').get_conn()
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
-    with open(file_path("user_purchase.csv"), "r") as f:
+    with open(file_path("user_purchase.csv"), "rb") as f:
         next(f)
         curr.copy_from(f, 'user_purchases', sep=',')
         get_postgres_conn.commit()
