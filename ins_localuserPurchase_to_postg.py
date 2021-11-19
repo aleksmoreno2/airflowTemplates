@@ -35,26 +35,26 @@ def csvToPostgres():
     # CSV loading to table.
     with open(file_path("user_purchase.csv"), "r") as f:
         next(f)
-        curr.copy_from(f, 'user_purchaseZ9', sep=',')
+        curr.copy_from(f, 'user_purchases', sep=',')
         get_postgres_conn.commit()
 
 
 #Task create_table
 create_table = PostgresOperator(task_id = 'create_user_purchase_table',
                          sql ="""
-                         CREATE TABLE IF NOT EXISTS user_purchaseZ9 (
-                            invoice_number VARCHAR(10),
-                            stock_code VARCHAR(20),
-                            detail VARCHAR(1000),
-                            quantity INT,
-                            invoice_date TIMESTAMP,
-                            unit_price NUMERIC(8,3),
-                            customer_id INT,
-                            country VARCHAR(20));
+                         CREATE TABLE IF NOT EXISTS user_purchases (
+                            InvoiceNo VARCHAR(100),
+                            StockCode VARCHAR(20),
+                            Description VARCHAR(1000),
+                            Quantity INT,
+                            InvoiceDate TIMESTAMP,
+                            UnitPrice NUMERIC(8,3),
+                            CustomerID INT,
+                            Country VARCHAR(20));
                             """,
                             postgres_conn_id='postgres_sql', 
                             autocommit=True,
-                            dag=dag)
+                            dag= dag)
 
 #Task populate_table
 populate_table = PythonOperator(task_id='csv_to_db',
