@@ -35,13 +35,13 @@ def csvToPostgres():
     # CSV loading to table.
     with open(file_path("user_purchase.csv"), "r") as f:
         next(f)
-        curr.copy_from(f, 'user_purchaseZ11', sep=',')
+        curr.copy_from(f, 'user_purchases', sep=',')
         get_postgres_conn.commit()
 
 #Task create_table
 create_table = PostgresOperator(task_id = 'create_user_purchase_table',
                          sql ="""
-                            CREATE TABLE IF NOT EXISTS user_purchaseZ11 (
+                            CREATE TABLE IF NOT EXISTS user_purchases (
                             invoice_number VARCHAR(10) PRIMARY KEY,
                             stock_code VARCHAR(20),
                             detail VARCHAR(1000),
