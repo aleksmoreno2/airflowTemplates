@@ -22,7 +22,7 @@ dag = DAG('ins_localuserPurchase_to_postg',
           catchup=False)
 
 def file_path(relative_path):
-    dir = "./"
+    dir = "c:/Users/aleks/de-bootcamp-am"
     split_path = relative_path.split("/")
     new_path = os.path.join(dir, *split_path)
     return new_path
