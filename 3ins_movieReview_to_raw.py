@@ -22,11 +22,11 @@ dag = DAG('ins_movieReview_to_raw',
           schedule_interval='@once',
           catchup=False)
 
-GOOGLE_CONN_ID = "google_cloud_project"
-BUCKET_SRC = 'de-bootcamp-am_raw_data'
-OBJECT_SRC = 'movie_review.csv'
-BUCKET_DST = "de-bootcamp-gcs-raw"
-OBJECT_DST = '_movie_review.csv'
+GOOGLE_CONN_ID = "google_cloud_project",
+BUCKET_SRC = "de-bootcamp-am_raw_data",
+OBJECT_SRC = "movie_review.csv",
+BUCKET_DST = "de-bootcamp-gcs-raw",
+OBJECT_DST = "_movie_review.csv"
 
 FILENAME = "user_purchase_"
 
