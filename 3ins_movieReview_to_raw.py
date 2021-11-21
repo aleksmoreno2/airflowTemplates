@@ -36,7 +36,9 @@ ins_moviereview_to_rawbucket = GCSToGCSOperator(
     source_bucket=BUCKET_SRC,
     source_object=OBJECT_SRC,
     destination_bucket=BUCKET_DST,
-    destination_object=OBJECT_DST
+    destination_object=OBJECT_DST,
+    move_object=True,
+    dag=dag
 )
 
 ins_moviereview_to_rawbucket
