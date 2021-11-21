@@ -5,7 +5,7 @@ from datetime import timedelta
 from datetime import datetime
 
 default_args = {
-    ''owner': 'alejandra.moreno',
+    'owner': 'alejandra.moreno',
     'depends_on_past': False,    
     'start_date': datetime(2021, 10, 29),
     'retries': 2,
