@@ -34,11 +34,30 @@ bucket_file = 'user_purchase.csv'
 #     gcs_file.close()
 #     self.response.write(contents)
 
-# def file_path(relative_path):
-#     dir = os.path.dirname(os.path.abspath(__file__))
-#     split_path = relative_path.split("/")
-#     return split_path
+def download(self, bucket, object, filename=None):
+        """
+        Get a file from Google Cloud Storage.
+        :param bucket: The bucket to fetch from.
+        :type bucket: string
+        :param object: The object to fetch.
+        :type object: string
+        :param filename: If set, a local file path where the file should be written to.
+        :type filename: string
+        """
+        service = self.get_conn()
+        downloaded_file_bytes = service \
+            .objects() \
+            .get_media(bucket=bucket, object=object) \
+            .execute()
 
+        # Write the file to local file path, if requested.
+        if filename:
+            write_argument = 'wb' if isinstance(downloaded_file_bytes, bytes) else 'w'
+            with open(filename, write_argument) as file_fd:
+                file_fd.write(downloaded_file_bytes)
+
+        return downloaded_file_bytes
+    
 def csvToPostgres():
     #Open Postgres Connection
     pg_hook = PostgresHook(postgres_conn_id='postgres_sql')
@@ -46,8 +65,13 @@ def csvToPostgres():
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
     gcs_hook = GoogleCloudStorageHook(gcp_conn_id=GOOGLE_CONN_ID)
-    gcs_hook.download(bucket_name, bucket_file, filebytes)
-    with open('filebytes', 'rb') as f:
+    gcs_hook.download(bucket_name, bucket_file)
+    
+    if filename:
+            with open(filename, write_argument) as file_fd:
+                file_fd.write(downloaded_file_bytes)
+                
+    with open(file_fd, 'rb') as f:
         next(f)
         curr.copy_from(f, 'user_purchase', sep=',')
         get_postgres_conn.commit()
