@@ -36,7 +36,7 @@ ins_moviereview_to_rawbucket = GCSToGCSOperator(
     source_object=['movie_review.csv'],
     destination_bucket='de-bootcamp-gcs-raw',
     destination_object='movie_review.csv',
-    gcp_conn_id=GOOGLE_CONN_ID
+    gcp_conn_id=GOOGLE_CONN_ID,
     dag=dag
 )
 
