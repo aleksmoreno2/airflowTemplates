@@ -36,14 +36,11 @@ PYSPARK_JOB = {
     "pyspark_job": {"main_python_file_uri": PYSPARK_URI},
 }
 
-with DAG(
-    'dataproc-cluster',
-    default_args=default_args,
-    description='create a Dataproc workflow',
-    schedule_interval=None,
-    start_date = days_ago(2)
-) as dag:
-    
+dag = DAG('dataproc-job-execution',
+          default_args=default_args,
+          schedule_interval='@once',
+          catchup=False)
+
     create_cluster = DataprocCreateClusterOperator(
         task_id="create_cluster",
         project_id=PROJECT_ID,
