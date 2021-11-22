@@ -65,10 +65,10 @@ def csvToPostgres():
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
     gcs_hook = GoogleCloudStorageHook(gcp_conn_id=GOOGLE_CONN_ID)
-    gcs_hook.download(bucket_name, bucket_file)
+    downloaded_file = gcs_hook.download(bucket_name, bucket_file)
     
-    if filename:
-            with open(filename, write_argument) as file_fd:
+    if downloaded_file:
+            with open(downloaded_file, write_argument) as file_fd:
                 file_fd.write(downloaded_file_bytes)
                 
     with open(file_fd, 'rb') as f:
