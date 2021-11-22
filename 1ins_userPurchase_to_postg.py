@@ -1,4 +1,4 @@
-import airflow
+limport airflow
 import os
 import psycopg2
 from airflow import DAG
@@ -22,13 +22,13 @@ dag = DAG('ins_userPurchase_to_postg',
           schedule_interval='@once',
           catchup=False)
 
-GOOGLE_CONN_ID = "google_cloud_project"
+GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_sql"
-bucket_name = "de-bootcamp-am_raw_data"
+bucket_name = "gs://de-bootcamp-am_raw_data"
 bucket_file = 'user_purchase.csv'
 
 # def read_file(self, filename):
-#     gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id='google_cloud_project')
+#     gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id='google_cloud_default')
 #     gcs_file = gcs_hook.open(filename)
 #     contents = gcs_file.read()
 #     gcs_file.close()
@@ -45,7 +45,7 @@ def csvToPostgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_sql').get_conn()
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
-    gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id='google_cloud_project')
+    gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id='google_cloud_default')
     gcs_hook.download(bucket_name, bucket_file, "DOWNLOAD_NAME")
     with open("DOWNLOAD_NAME") as f:
         next(f)
