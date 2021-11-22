@@ -35,22 +35,22 @@ bucket_file = 'user_purchase.csv'
 #     gcs_file.close()
 #     self.response.write(contents)
  
-def __init__(self,
-                 google_cloud_storage_conn_id='google_cloud_default',
-                 delegate_to=None):
-        super(GoogleCloudStorageHook, self).__init__(google_cloud_storage_conn_id,
-                                                     delegate_to)
+#def __init__(self,
+#                 google_cloud_storage_conn_id='google_cloud_default',
+#                 delegate_to=None):
+#        super(GoogleCloudStorageHook, self).__init__(google_cloud_storage_conn_id,
+#                                                     delegate_to)
 
-def get_conn(self):
-        """
-        Returns a Google Cloud Storage service object.
-        """
-        http_authorized = self._authorize()
-        return build('storage', 'v1', http=http_authorized)    
+#def get_conn(self):
+#        """
+#        Returns a Google Cloud Storage service object.
+#        """
+#        http_authorized = self._authorize()
+#        return build('storage', 'v1', http=http_authorized)    
     
-def download(self, bucket, object, filename=None):
-        client = self.get_conn()
-        bucket = client.bucket(bucket)
+def download(bucket, object, filename=None):
+        g_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id=google_cloud_default, delegate_to=self.delegate_to)
+        bucket = g_hook.bucket(bucket)
         blob = bucket.blob(blob_name=object)
 
         if filename:
@@ -66,7 +66,7 @@ def csvToPostgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_sql').get_conn()
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
-    file_fd = download(self,bucket_name,bucket_file)
+    file_fd = download(bucket_name,bucket_file)
     with open(file_fd, 'rb') as f:
         next(f)
         curr.copy_from(f, 'user_purchase', sep=',')
