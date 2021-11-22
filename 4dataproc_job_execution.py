@@ -36,7 +36,7 @@ CLUSTER_CONFIG = {
 
 
 with DAG(
-    'dataproc-cluster,
+    'dataproc-cluster',
     default_args=default_args,
     description='create a Dataproc workflow',
     schedule_interval=None,
