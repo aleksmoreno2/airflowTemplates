@@ -31,7 +31,7 @@ bucket_file = 'user_purchase.csv'
 
 def read_file(filename):
      google_cloud_storage_conn_id='google_cloud_default'
-     gcs_file = gcs_hook.open(filename)
+     gcs_file = gcs.open(filename)
      contents = gcs_file.read()
      gcs_file.close()
      self.response.write(contents)
