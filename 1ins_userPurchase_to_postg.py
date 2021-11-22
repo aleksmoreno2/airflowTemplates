@@ -66,7 +66,7 @@ def csvToPostgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_sql').get_conn()
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
-    file_fd = download(bucket_name,bucket_file)
+    file_fd = download(self,bucket_name,bucket_file)
     with open(file_fd, 'rb') as f:
         next(f)
         curr.copy_from(f, 'user_purchase', sep=',')
