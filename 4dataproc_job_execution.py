@@ -17,13 +17,11 @@ PROJECT_ID='de-bootcamp-am'
 CLUSTER_CONFIG = {
     "master_config": {
         "num_instances": 1,
-        "machine_type_uri": "n1-standard-4",
-        "disk_config": {"boot_disk_type": "pd-standard", "boot_disk_size_gb": 1000},
+        "machine_type_uri": "n1-standard-2"
     },
     "worker_config": {
         "num_instances": 2,
-        "machine_type_uri": "n1-standard-4",
-        "disk_config": {"boot_disk_type": "pd-standard", "boot_disk_size_gb": 1000},
+        "machine_type_uri": "n1-standard-2"
     }
 }
 
@@ -38,7 +36,7 @@ CLUSTER_CONFIG = {
 
 
 with DAG(
-    'dataproc-POC-1',
+    'dataproc-cluster,
     default_args=default_args,
     description='create a Dataproc workflow',
     schedule_interval=None,
