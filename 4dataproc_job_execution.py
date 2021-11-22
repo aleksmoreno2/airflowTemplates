@@ -66,4 +66,4 @@ delete_cluster = DataprocDeleteClusterOperator(
         dag=dag
     )
 
-    create_cluster>>pyspark_task>>delete_cluster    
+create_cluster>>pyspark_task>>delete_cluster    
