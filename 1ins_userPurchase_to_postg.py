@@ -68,7 +68,7 @@ def csvToPostgres():
     downloaded_file = gcs_hook.download(bucket_name, bucket_file)
     
     if downloaded_file:
-            with open(downloaded_file, write_argument) as file_fd:
+            with open(downloaded_file, 'wrb') as file_fd:
                 file_fd.write(downloaded_file_bytes)
                 
     with open(file_fd, 'rb') as f:
