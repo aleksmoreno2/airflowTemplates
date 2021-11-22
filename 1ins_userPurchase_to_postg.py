@@ -5,6 +5,8 @@ from airflow import DAG
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.postgres_hook import PostgresHook
+from google.cloud import storage
+from airflow.contrib.hooks.gcp_api_base_hook import GoogleCloudBaseHook
 from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
 from datetime import timedelta
 from datetime import datetime
@@ -28,7 +30,7 @@ bucket_name = "de-bootcamp-am_raw_data"
 bucket_file = 'user_purchase.csv'
 
 def read_file(filename):
-     gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id='google_cloud_default')
+     google_cloud_storage_conn_id='google_cloud_default'
      gcs_file = gcs_hook.open(filename)
      contents = gcs_file.read()
      gcs_file.close()
