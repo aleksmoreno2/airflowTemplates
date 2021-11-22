@@ -4,7 +4,6 @@ import psycopg2
 from airflow import DAG
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
-from airflow.hooks.postgres_hook import PostgresHook
 from airflow.providers.google.cloud.transfers.gcs_to_gcs import GCSToGCSOperator
 from datetime import timedelta
 from datetime import datetime
@@ -22,7 +21,7 @@ dag = DAG('ins_movieReview_to_raw',
           schedule_interval='@once',
           catchup=False)
 
-GOOGLE_CONN_ID = "google_cloud_project",
+GOOGLE_CONN_ID = "google_cloud_default",
 BUCKET_SRC = "de-bootcamp-am_raw_data",
 OBJECT_SRC = "movie_review.csv",
 BUCKET_DST = "de-bootcamp-gcs-raw",
