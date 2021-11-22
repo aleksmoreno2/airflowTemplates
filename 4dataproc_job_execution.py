@@ -9,7 +9,7 @@ default_args = {
     'depends_on_past': False   
 }
 
-CLUSTER_NAME = 'debootcamp_am_clusterdataproc_10'
+CLUSTER_NAME = 'debootcampamcldataproc10'
 REGION='us-central1'
 PROJECT_ID='de-bootcamp-am'
 
