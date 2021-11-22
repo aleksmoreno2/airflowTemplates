@@ -27,12 +27,12 @@ POSTGRES_CONN_ID = "postgres_sql"
 bucket_name = "de-bootcamp-am_raw_data"
 bucket_file = 'user_purchase.csv'
 
-# def read_file(self, filename):
-#     gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id='google_cloud_default')
-#     gcs_file = gcs_hook.open(filename)
-#     contents = gcs_file.read()
-#     gcs_file.close()
-#     self.response.write(contents)
+def read_file(filename):
+     gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id='google_cloud_default')
+     gcs_file = gcs_hook.open(filename)
+     contents = gcs_file.read()
+     gcs_file.close()
+     self.response.write(contents)
 
 def csvToPostgres():
     #Open Postgres Connection
@@ -40,10 +40,7 @@ def csvToPostgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_sql').get_conn()
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
-    gcs_hook = GoogleCloudStorageHook(gcp_conn_id=GOOGLE_CONN_ID)
-    downloaded_file = gcs_hook.download(bucket_name, bucket_file)
-    with open(downloaded_file, 'wb') as file_fd:
-                file_fd.write(downloaded_file_bytes)
+    file_fd = read_file(bucket_file)
     with open(file_fd, 'rb') as f:
         next(f)
         curr.copy_from(f, 'user_purchase', sep=',')
