@@ -68,10 +68,10 @@ def csvToPostgres():
     downloaded_file = gcs_hook.download(bucket_name, bucket_file)
     
     if downloaded_file:
-            with open(downloaded_file, 'wrb') as file_fd:
+            with open(downloaded_file, 'wb') as file_fd:
                 file_fd.write(downloaded_file_bytes)
                 
-    with open(file_fd, 'rb') as f:
+    with open(downloaded_file_bytes, 'rb') as f:
         next(f)
         curr.copy_from(f, 'user_purchase', sep=',')
         get_postgres_conn.commit()
