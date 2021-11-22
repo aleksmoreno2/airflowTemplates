@@ -32,11 +32,11 @@ FILENAME = "user_purchase_"
 #Task create_table
 ins_moviereview_to_rawbucket = GCSToGCSOperator(
     task_id="copy_movieReview_raw_gcs",
-    source_bucket=BUCKET_SRC,
-    source_object=OBJECT_SRC,
-    destination_bucket=BUCKET_DST,
-    destination_object=OBJECT_DST,
-    move_object=True,
+    source_bucket='de-bootcamp-am_raw_data',
+    source_object=['movie_review.csv'],
+    destination_bucket='de-bootcamp-gcs-raw',
+    destination_object='movie_review.csv',
+    gcp_conn_id=GOOGLE_CONN_ID
     dag=dag
 )
 
