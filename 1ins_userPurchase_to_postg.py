@@ -24,7 +24,7 @@ dag = DAG('ins_userPurchase_to_postg',
 
 GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_sql"
-bucket_name = "gs://de-bootcamp-am_raw_data"
+bucket_name = "de-bootcamp-am_raw_data"
 bucket_file = 'user_purchase.csv'
 
 # def read_file(self, filename):
@@ -45,9 +45,10 @@ def csvToPostgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_sql').get_conn()
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
-    gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id='google_cloud_default')
-    gcs_hook.download(bucket_name, bucket_file, "DOWNLOAD_NAME")
-    with open("DOWNLOAD_NAME") as f:
+    gcs_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id=self.google_cloud_storage_conn_id,
+                                   delegate_to=self.delegate_to)
+    filebytes = gcs_hook.download(bucket_name, bucket_file)
+    with open(filebytes) as f:
         next(f)
         curr.copy_from(f, 'user_purchase', sep=',')
         get_postgres_conn.commit()
