@@ -22,9 +22,9 @@ dag = DAG('ins_movieReview_to_raw',
           catchup=False)
 
 GOOGLE_CONN_ID = "google_cloud_default",
-BUCKET_SRC = "de-bootcamp-am_raw_data",
+BUCKET_SRC = "gs://de-bootcamp-am_raw_data",
 OBJECT_SRC = "movie_review.csv",
-BUCKET_DST = "de-bootcamp-gcs-raw",
+BUCKET_DST = "gs://de-bootcamp-gcs-raw",
 OBJECT_DST = "_movie_review.csv"
 
 FILENAME = "user_purchase_"
