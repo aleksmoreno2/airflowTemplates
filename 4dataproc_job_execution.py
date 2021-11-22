@@ -5,14 +5,18 @@ from airflow.providers.google.cloud.operators.dataproc import  DataprocCreateClu
 from airflow.providers.google.cloud.operators.dataproc import DataprocSubmitJobOperator
 from airflow.providers.google.cloud.operators.dataproc import DataprocDeleteClusterOperator
 
-default_args = {
-    'depends_on_past': False   
+default_args = {  
+    'owner': 'alejandra.moreno',
+    'depends_on_past': False,    
+    'start_date': datetime(2021, 10, 29),
+    'retries': 2,
+    'retry_delay': timedelta(minutes=1),
 }
 
-CLUSTER_NAME = 'debootcampamcldataproc10'
+CLUSTER_NAME = 'debootcamp_am_cldataproc'
 REGION='us-central1'
 PROJECT_ID='de-bootcamp-am'
-
+PYSPARK_URI = f"gs://de-bootcamp-am_raw_data/classificationMovieReviewLogic.pyspark.py"
 
 CLUSTER_CONFIG = {
     "master_config": {
@@ -25,15 +29,11 @@ CLUSTER_CONFIG = {
     }
 }
 
-# SPARK_JOB = {
-#     "reference": {"project_id": PROJECT_ID},
-#     "placement": {"cluster_name": CLUSTER_NAME},
-#     "spark_job": {
-#     "jar_file_uris": ["gs://equifax-poc-3/poc-1_2.11-0.1.jar"],
-#     "main_class": "poc_1",
-#     },
-# }
-
+PYSPARK_JOB = {
+    "reference": {"project_id": PROJECT_ID},
+    "placement": {"cluster_name": CLUSTER_NAME},
+    "pyspark_job": {"main_python_file_uri": PYSPARK_URI},
+}
 
 with DAG(
     'dataproc-cluster',
@@ -42,8 +42,7 @@ with DAG(
     schedule_interval=None,
     start_date = days_ago(2)
 ) as dag:
-
-
+    
     create_cluster = DataprocCreateClusterOperator(
         task_id="create_cluster",
         project_id=PROJECT_ID,
@@ -51,11 +50,14 @@ with DAG(
         region=REGION,
         cluster_name=CLUSTER_NAME,
     )
-
-    # spark_task = DataprocSubmitJobOperator(
-    #     task_id="spark_task", job=SPARK_JOB, region=REGION, project_id=PROJECT_ID
-    # )
-
+    
+    pyspark_task = DataprocSubmitJobOperator(
+        task_id="pyspark_task", 
+        job=PYSPARK_JOB, 
+        region=REGION, 
+        project_id=PROJECT_ID
+    )
+    
     delete_cluster = DataprocDeleteClusterOperator(
         task_id="delete_cluster", 
         project_id=PROJECT_ID, 
@@ -63,4 +65,4 @@ with DAG(
         region=REGION
     )
 
-    create_cluster>>delete_cluster    
+    create_cluster>>pyspark_task>>delete_cluster    
