@@ -41,26 +41,29 @@ dag = DAG('dataproc-job-execution',
           schedule_interval='@once',
           catchup=False)
 
-    create_cluster = DataprocCreateClusterOperator(
+create_cluster = DataprocCreateClusterOperator(
         task_id="create_cluster",
         project_id=PROJECT_ID,
         cluster_config=CLUSTER_CONFIG,
         region=REGION,
         cluster_name=CLUSTER_NAME,
+        dag=dag
     )
     
-    pyspark_task = DataprocSubmitJobOperator(
+pyspark_task = DataprocSubmitJobOperator(
         task_id="pyspark_task", 
         job=PYSPARK_JOB, 
         region=REGION, 
-        project_id=PROJECT_ID
+        project_id=PROJECT_ID,
+        dag=dag
     )
     
-    delete_cluster = DataprocDeleteClusterOperator(
+delete_cluster = DataprocDeleteClusterOperator(
         task_id="delete_cluster", 
         project_id=PROJECT_ID, 
         cluster_name=CLUSTER_NAME, 
-        region=REGION
+        region=REGION,
+        dag=dag
     )
 
     create_cluster>>pyspark_task>>delete_cluster    
