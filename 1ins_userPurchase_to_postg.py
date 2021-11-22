@@ -5,7 +5,6 @@ from airflow import DAG
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.postgres_hook import PostgresHook
-import cloudstorage as gcs
 from airflow.contrib.hooks.gcp_api_base_hook import GoogleCloudBaseHook
 from airflow.contrib.hooks.gcs_hook import GoogleCloudStorageHook
 from datetime import timedelta
