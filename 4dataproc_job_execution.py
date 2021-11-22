@@ -14,7 +14,7 @@ default_args = {
     'retry_delay': timedelta(minutes=1),
 }
 
-CLUSTER_NAME = 'debootcamp_am_cldataproc'
+CLUSTER_NAME = 'debootcampamcldataproc'
 REGION='us-central1'
 PROJECT_ID='de-bootcamp-am'
 PYSPARK_URI = f"gs://de-bootcamp-am_raw_data/classificationMovieReviewLogic.pyspark.py"
