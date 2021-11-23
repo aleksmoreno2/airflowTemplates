@@ -84,7 +84,7 @@ create_table = PostgresOperator(task_id = 'create_user_purchase_table',
                             quantity INT,
                             invoice_date TIMESTAMP,
                             unit_price NUMERIC(8,3),
-                            customer_id INT,
+                            customer_id INT DEFAULT 0,
                             country VARCHAR(20));
                         """,
                          postgres_conn_id='postgres_sql', 
