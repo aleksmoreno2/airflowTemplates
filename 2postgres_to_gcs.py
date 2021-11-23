@@ -18,11 +18,10 @@ dag = DAG('postgres_to_gcs',
           schedule_interval='@once',
           catchup=False)
 
-conn_id = "google_cloud_default"
 GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_sql"
 FILENAME = "user_purchase_"
-SQL_QUERY = "select * from user_purchase",
+SQL_QUERY = "select * from user_purchase"
 bucket_name = "de-bootcamp-gcs-raw"
 
 upload_data = PostgresToGCSOperator(
