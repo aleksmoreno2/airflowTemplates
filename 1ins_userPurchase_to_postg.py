@@ -68,8 +68,8 @@ def csvToPostgres():
     # CSV loading to table.
     g_hook = GoogleCloudStorageHook(gcp_conn_id=GOOGLE_CONN_ID,)
     
-    g_hook.download(bucket_name,bucket_file,file_fd)
-    with open(file_fd, 'rb') as f:
+    g_hook.download(bucket_name,bucket_file,'file_fd')
+    with open('file_fd', 'rb') as f:
         next(f)
         curr.copy_from(f, 'user_purchase', sep=',')
         get_postgres_conn.commit()
