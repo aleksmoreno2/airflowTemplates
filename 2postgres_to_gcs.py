@@ -1,7 +1,6 @@
 import airflow
 import os
 from airflow import DAG
-from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.providers.google.cloud.transfers.postgres_to_gcs import PostgresToGCSOperator
 from datetime import timedelta
 from datetime import datetime
