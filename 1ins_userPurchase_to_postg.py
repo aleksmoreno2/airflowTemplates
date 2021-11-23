@@ -48,17 +48,17 @@ bucket_file = 'user_purchase.csv'
 #        http_authorized = self._authorize()
 #        return build('storage', 'v1', http=http_authorized)    
     
-def download(bucket, object, filename=None):
-        g_hook = GoogleCloudStorageHook(gcp_conn_id=GOOGLE_CONN_ID,)
-        bucket = g_hook.bucket(bucket)
-        blob = bucket.blob(blob_name=object)
+#def download(bucket, object, filename=None):
+#        g_hook = GoogleCloudStorageHook(gcp_conn_id=GOOGLE_CONN_ID,)
+#        bucket = g_hook.bucket(bucket)
+#        blob = bucket.blob(blob_name=object)
 
-        if filename:
-            blob.download_to_filename(filename)
-            self.log.info('File downloaded to %s', filename)
-            return filename
-        else:
-            return blob.download_as_string()
+#        if filename:
+#            blob.download_to_filename(filename)
+#            self.log.info('File downloaded to %s', filename)
+#            return filename
+#        else:
+#            return blob.download_as_string()
 
 def csvToPostgres():
     #Open Postgres Connection
@@ -66,7 +66,9 @@ def csvToPostgres():
     get_postgres_conn = PostgresHook(postgres_conn_id='postgres_sql').get_conn()
     curr = get_postgres_conn.cursor()
     # CSV loading to table.
-    file_fd = download(bucket_name,bucket_file)
+    g_hook = GoogleCloudStorageHook(gcp_conn_id=GOOGLE_CONN_ID,)
+    
+    file_fd = g_hook.download(bucket_name,bucket_file,'file_fd')
     with open(file_fd, 'rb') as f:
         next(f)
         curr.copy_from(f, 'user_purchase', sep=',')
