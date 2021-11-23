@@ -22,7 +22,7 @@ GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_sql"
 FILENAME = "user_purchase_"
 SQL_QUERY = "select * from user_purchase"
-bucket_name = "de-bootcamp-gcs-raw"
+bucket_name = "de-bootcamp-gcs-staging"
 
 upload_data = PostgresToGCSOperator(
         postgres_conn_id='postgres_sql',
@@ -34,6 +34,7 @@ upload_data = PostgresToGCSOperator(
         dag=dag)
         
 upload_data_server_side_cursor = PostgresToGCSOperator(
+        postgres_conn_id='postgres_sql',
         task_id="get_data_with_server_side_cursor",
         sql=SQL_QUERY,
         bucket=bucket_name,
