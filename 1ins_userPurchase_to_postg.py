@@ -79,7 +79,7 @@ create_table = PostgresOperator(task_id = 'create_user_purchase_table',
                          sql ="""
                             DROP TABLE IF EXISTS user_purchase;
                             CREATE TABLE user_purchase (
-                            invoice_number VARCHAR(10) PRIMARY KEY,
+                            invoice_number VARCHAR(10),
                             stock_code VARCHAR(20),
                             detail VARCHAR(1000),
                             quantity INT,
