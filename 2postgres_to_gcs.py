@@ -18,6 +18,7 @@ dag = DAG('postgres_to_gcs',
           schedule_interval='@once',
           catchup=False)
 
+conn_id = "google_cloud_default"
 GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_sql"
 FILENAME = "user_purchase_"
