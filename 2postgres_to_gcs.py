@@ -25,6 +25,7 @@ SQL_QUERY = "select * from user_purchase"
 bucket_name = "de-bootcamp-gcs-raw"
 
 upload_data = PostgresToGCSOperator(
+        postgres_conn_id='postgres_sql'
         task_id="get_data", 
         sql=SQL_QUERY, 
         bucket=bucket_name, 
