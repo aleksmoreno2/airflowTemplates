@@ -49,7 +49,7 @@ bucket_file = 'user_purchase.csv'
 #        return build('storage', 'v1', http=http_authorized)    
     
 def download(bucket, object, filename=None):
-        g_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id=google_cloud_default, delegate_to=self.delegate_to)
+        g_hook = GoogleCloudStorageHook(google_cloud_storage_conn_id=GOOGLE_CONN_ID, delegate_to=self.delegate_to)
         bucket = g_hook.bucket(bucket)
         blob = bucket.blob(blob_name=object)
 
