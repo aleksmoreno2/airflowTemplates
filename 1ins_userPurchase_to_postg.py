@@ -71,7 +71,7 @@ def csvToPostgres():
     g_hook.download(bucket_name,bucket_file,'file_fd')
     with open('file_fd', 'rb') as f:
         next(f)
-        curr.copy_from(f, 'user_purchase', sep='|')
+        curr.copy_from(f, 'user_purchase')
         get_postgres_conn.commit()
 
 #Task create_table
