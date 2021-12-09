@@ -29,7 +29,8 @@ upload_data = PostgresToGCSOperator(
         task_id="get_data_postgres", 
         sql=SQL_QUERY, 
         bucket=bucket_name, 
-        filename=FILENAME, 
+        filename=FILENAME,
+        export_format='parquet'
         gzip=False, 
         dag=dag)
         
