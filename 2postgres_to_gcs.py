@@ -30,7 +30,7 @@ upload_data = PostgresToGCSOperator(
         sql=SQL_QUERY, 
         bucket=bucket_name, 
         filename=FILENAME,
-        export_format='parquet'
+        export_format='parquet',
         gzip=False, 
         dag=dag)
         
