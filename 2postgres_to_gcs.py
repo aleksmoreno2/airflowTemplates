@@ -20,7 +20,7 @@ dag = DAG('postgres_to_gcs',
 
 GOOGLE_CONN_ID = "google_cloud_default"
 POSTGRES_CONN_ID = "postgres_sql"
-FILENAME = "user_purchase_"
+FILENAME = "user_purchase"
 SQL_QUERY = "select * from user_purchase"
 bucket_name = "de-bootcamp-gcs-staging"
 
