@@ -26,7 +26,7 @@ bucket_name = "de-bootcamp-gcs-staging"
 
 upload_data = PostgresToGCSOperator(
         postgres_conn_id='postgres_sql',
-        task_id="get_data", 
+        task_id="get_data_postgres", 
         sql=SQL_QUERY, 
         bucket=bucket_name, 
         filename=FILENAME, 
