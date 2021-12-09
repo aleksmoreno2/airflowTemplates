@@ -36,7 +36,7 @@ PYSPARK_JOB = {
     "pyspark_job": {"main_python_file_uri": PYSPARK_URI},
 }
 
-dag = DAG('dataproc-job-execution',
+dag = DAG('dataproc-job-execution-classmoviereview',
           default_args=default_args,
           schedule_interval='@once',
           catchup=False)
