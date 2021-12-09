@@ -44,4 +44,5 @@ upload_data_server_side_cursor = PostgresToGCSOperator(
         export_format='parquet',
         dag=dag)
 
-upload_data >> upload_data_server_side_cursor
+upload_data_server_side_cursor
+#upload_data >> upload_data_server_side_cursor
