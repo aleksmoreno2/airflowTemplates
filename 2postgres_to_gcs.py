@@ -24,14 +24,14 @@ FILENAME = "user_purchase_"
 SQL_QUERY = "select * from user_purchase"
 bucket_name = "de-bootcamp-gcs-staging"
 
-upload_data = PostgresToGCSOperator(
-        postgres_conn_id='postgres_sql',
-        task_id="get_data", 
-        sql=SQL_QUERY, 
-        bucket=bucket_name, 
-        filename=FILENAME, 
-        gzip=False, 
-        dag=dag)
+#upload_data = PostgresToGCSOperator(
+#        postgres_conn_id='postgres_sql',
+#        task_id="get_data", 
+#        sql=SQL_QUERY, 
+#        bucket=bucket_name, 
+#        filename=FILENAME, 
+#        gzip=False, 
+#        dag=dag)
         
 upload_data_server_side_cursor = PostgresToGCSOperator(
         postgres_conn_id='postgres_sql',
